@@ -33,8 +33,10 @@ class LoginController {
                         if($usuario->admin === "1") {
                             $_SESSION['admin'] = $usuario->admin ?? null;
                             header('Location: /admin');
+                            exit;
                         } else {
                             header('Location: /cita');
+                            exit;
                         }
                     }
                 } else {
@@ -55,6 +57,7 @@ class LoginController {
         session_start();
         $_SESSION = [];
         header('Location: /');
+        exit;
     }
 
     public static function olvide(Router $router) {
@@ -124,6 +127,7 @@ class LoginController {
                 $resultado = $usuario->guardar();
                 if($resultado) {
                     header('Location: /');
+                        exit;
                 }
             }
         }
@@ -167,6 +171,7 @@ class LoginController {
                     // debuguear($usuario);
                     if($resultado) {
                         header('Location: /mensaje');
+                        exit;
                     }
                 }
             }

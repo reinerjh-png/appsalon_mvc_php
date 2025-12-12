@@ -16,7 +16,17 @@ class Router
     }
 
     public function comprobarRutas() {
-        $currentUrl = $_SERVER['PATH_INFO'] ?? '/';
+        // Usar REQUEST_URI para compatibilidad con hostings compartidos (InfinityFree, etc.)
+        $currentUrl = $_SERVER['REQUEST_URI'] ?? '/';
+        
+        // Remover query string si existe (?param=value)
+        $currentUrl = strtok($currentUrl, '?');
+        
+        // Asegurar que la URL comience con /
+        if(empty($currentUrl) || $currentUrl === '') {
+            $currentUrl = '/';
+        }
+        
         $method = $_SERVER['REQUEST_METHOD'];
 
         if ($method === 'GET') {
